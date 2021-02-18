@@ -26,7 +26,7 @@ class MyView1 extends LitElement {
         align-items: center
       }
     `
-  }
+  };
 
   static get properties() {
     return { 
@@ -34,7 +34,7 @@ class MyView1 extends LitElement {
       email: {type: String},
       phoneNumber: {type: String},
     };
-  }
+  };
 
   constructor() {
     super();
@@ -43,6 +43,42 @@ class MyView1 extends LitElement {
     this.phoneNumber="";
   };
 
+  validateForm() {
+    // false is invalid
+    const userNameValidation = () => {
+      return this.userName === "" ? false : true;
+    };
+
+    const emailValidation = () => {
+      return this.email.indexOf("@") < 0 ? false : true;
+    };
+
+    const phoneNumberValidation = () =>{
+      return this.phoneNumber === "" ? false : true;
+    }
+
+    if(userNameValidation() && emailValidation() && phoneNumberValidation())
+    {
+      return true;
+    }
+    else 
+    {
+      return false;
+    }
+  };
+
+  onSubmitBtnClickHandler (){
+    // validate form first
+    if(this.validateForm())
+    {
+      console.log("Name: "+this.userName+"\nEmail: "+this.email+"\nPhone Number: "+this.phoneNumber);
+      alert("Name: "+this.userName+"\nEmail: "+this.email+"\nPhone Number: "+this.phoneNumber);
+    }
+    else 
+    {
+      alert("Make sure to fill all fields.");
+    }
+  };
   
 
   render () {
@@ -69,40 +105,12 @@ class MyView1 extends LitElement {
             </div>
           </div>
           <div class="control">
-            <button class="button is-link" @click="${()=>this._onSubmitBtnClickHandler()}">Submit</button>
+            <button class="button is-link" @click="${()=>this.onSubmitBtnClickHandler()}">Submit</button>
           </div>
         </form>
       </div>
     `
   }
-  
-
-  // false is invalid
-  _userNameValidation () {
-    return this.userName === "" ? false : true;
-  };
-
-  _emailValidation () {
-    return this.email.indexOf("@") < 0 ? false : true;
-  };
-
-  _phoneNumberValidation () {
-    return this.phoneNumber === "" ? false : true;
-  }
-
-  _onSubmitBtnClickHandler (){
-    // validate form first
-    if(this._userNameValidation() && this._emailValidation() && this._phoneNumberValidation())
-    {
-      console.log("Name: "+this.userName+"\nEmail: "+this.email+"\nPhone Number: "+this.phoneNumber);
-      alert("Name: "+this.userName+"\nEmail: "+this.email+"\nPhone Number: "+this.phoneNumber);
-    }
-    else 
-    {
-      alert("Make sure to fill all fields.");
-    }
-  }
-
 }
 
 window.customElements.define('my-view1', MyView1);

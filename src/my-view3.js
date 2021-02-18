@@ -95,8 +95,6 @@ class MyView3 extends LitElement {
   constructor () {
     super();
     this.toDoData=[];
-    
-    console.log(this.sortDictionary());
   }
 
   firstUpdated(changedProperties) {
